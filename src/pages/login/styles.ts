@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { themas } from "../../global/theme";
+import { theme } from "../../global/theme";
 
 export const style = StyleSheet.create({
   container: {
@@ -39,7 +39,7 @@ export const style = StyleSheet.create({
   },
 
   labelInput:{
-    color:themas.colors.secondary,
+    color:theme.colors.secondary,
     fontSize: 16,
     marginTop: 20
   },
@@ -51,8 +51,8 @@ export const style = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
     alignItems: 'center',
-    backgroundColor: themas.colors.lightGrey,
-    borderColor:themas.colors.lightGrey
+    backgroundColor: theme.colors.lightGrey,
+    borderColor:theme.colors.lightGrey
   },
 
   input:{
@@ -66,7 +66,7 @@ export const style = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: themas.colors.primary,
+    backgroundColor: theme.colors.primary,
     borderRadius: 30,
   },
   textButton:{

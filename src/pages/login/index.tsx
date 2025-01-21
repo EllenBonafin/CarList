@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { authenticate } from "../../router/login";
+import { authenticate } from "../../service/login";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { style } from "./styles";
 import Logo from "../../assets/Logo.png";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-  
-    const handleLogin = async () => {
-      console.log("Tentando autenticar com:", email, password);
-      try {
-        const { token } = await authenticate(email, password);
-        console.log("Autenticação bem-sucedida, token:", token);
-      } catch (error) {
-        console.error(error);
-        setError("Erro ao autenticar. Verifique suas credenciais.");
-      }
-    };
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      await authenticate(email, password);
+
+      navigation.navigate("CarList");
+    } catch (error) {
+      console.error(error);
+      setError("Erro ao autenticar. Verifique suas credenciais.");
+    }
+  };
 
   return (
     <View style={style.container}>
