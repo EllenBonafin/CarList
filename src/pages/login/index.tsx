@@ -5,9 +5,11 @@ import { style } from "./styles";
 import Logo from "../../assets/Logo.png";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useAuth } from "../../contexts/authContext";
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,9 +17,11 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      await authenticate(email, password);
+      const token = await authenticate(email, password);
 
-      navigation.navigate("CarList");
+      console.log("Token recebido:", token);
+
+      login(token);
     } catch (error) {
       console.error(error);
       setError("Erro ao autenticar. Verifique suas credenciais.");
@@ -28,14 +32,13 @@ const Login = () => {
     <View style={style.container}>
       <View style={style.boxTop}>
         <Image source={Logo} resizeMode="contain" style={style.logo} />
-        <Text style={style.text}>Welcome Back</Text>
+        <Text style={style.text}>Bem Vindo de Volta</Text>
       </View>
       <View style={style.boxCenter}>
         <Text style={style.labelInput}>Email:</Text>
         <View style={style.boxInput}>
           <TextInput
             style={style.input}
-            placeholder="Email"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -43,11 +46,10 @@ const Login = () => {
           />
           <MaterialIcons name="person" size={20} />
         </View>
-        <Text style={style.labelInput}>Password:</Text>
+        <Text style={style.labelInput}>Senha:</Text>
         <View style={style.boxInput}>
           <TextInput
             style={style.input}
-            placeholder="Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry

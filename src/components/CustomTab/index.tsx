@@ -1,66 +1,52 @@
-import React,{useContext} from 'react';
+import React, { useContext } from "react";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 import {
-    TouchableOpacity,
-    StyleSheet,
-    View
-} from 'react-native';
-import {Ionicons,FontAwesome,Entypo,AntDesign,MaterialIcons} from '@expo/vector-icons';
+  Ionicons,
+  FontAwesome,
+  Entypo,
+  AntDesign,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { style } from "./styles";
-import { theme } from '../../global/theme';
+import { theme } from "../../global/theme";
 //import {AuthContextList}   from "../../context/authContext_list";
 
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp } from "@react-navigation/native";
 
 interface Props {
-    state: { index: number };
-    navigation: NavigationProp<any>;
+  state: { index: number };
+  navigation: NavigationProp<any>;
 }
 
 export default ({ state, navigation }: Props) => {
+  // const {onOpen} = useContext<any>(AuthContextList);
 
-    // const {onOpen} = useContext<any>(AuthContextList);
+  const go = (screenName: string) => {
+    navigation.navigate(screenName);
+  };
 
-    const go=((screenName:string)=>{
-        navigation.navigate(screenName);
-    })
-
-    return(
-        <View style={style.TabArea}>
-            <TouchableOpacity  style={style.TabItem} onPress={()=>go('List')}>
-                <AntDesign 
-                    name="bars"  
-                    style={{opacity:state.index===0?1:0.5,color:theme.colors.primary,fontSize:32}}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity  
-                style={style.TabItemButton} 
-                // onPress={()=>onOpen()}
-                onPress={(event) => {
-                    event.persist();
-                    //onOpen();
-                }}
-            >
-                <View style={{width:'100%',left:10,top:4}}>
-                    <Entypo 
-                        name="plus"  
-                        style={{color:'#FFF'}}
-                        size={40}
-                    />
-                </View>
-                <View style={{flexDirection:'row-reverse',width:'100%',right:10,bottom:10}}>
-                    <MaterialIcons 
-                        name="edit"  
-                        style={{color:'#FFF'}}
-                        size={30}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.TabItem} onPress={()=>go('User')}>
-                <FontAwesome 
-                    name="user-circle-o"  
-                    style={{opacity:state.index===1?1:0.2,color:theme.colors.primary,fontSize:32}}
-                />
-            </TouchableOpacity>
-        </View>
-    );
-}
+  return (
+    <View style={style.TabArea}>
+      <TouchableOpacity style={style.TabItem} onPress={() => go("CarList")}>
+        <AntDesign
+          name="bars"
+          style={{
+            opacity: state.index === 0 ? 1 : 0.5,
+            color: theme.colors.primary,
+            fontSize: 32,
+          }}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={style.TabItem} onPress={() => go("User")}>
+        <FontAwesome
+          name="user-circle-o"
+          style={{
+            opacity: state.index === 1 ? 1 : 0.2,
+            color: theme.colors.primary,
+            fontSize: 32,
+          }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
